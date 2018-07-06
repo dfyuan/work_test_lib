@@ -1,0 +1,1 @@
+cmd_drivers/usb/gadget/gdt_uvcvideo/uvc_gadget.o := ./../prebuilts/gcc/linux-x86/aarch64/aarch64-linux-android-4.9/bin/aarch64-linux-android-ld -EL    -r -o drivers/usb/gadget/gdt_uvcvideo/uvc_gadget.o drivers/usb/gadget/gdt_uvcvideo/g_media.o drivers/usb/gadget/gdt_uvcvideo/g_uvc_video.o drivers/usb/gadget/gdt_uvcvideo/g_uvc_mjpeg.o drivers/usb/gadget/gdt_uvcvideo/g_uvc_ctrl.o 

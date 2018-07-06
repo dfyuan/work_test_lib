@@ -1,0 +1,47 @@
+#!/bin/sh
+#
+# Enable usb wifi ap mode
+#
+
+
+start()
+{
+    insmod /etc/RTL8188EU.ko
+    sleep 1
+    ifconfig wlan0 up
+	
+	/etc/hostap/hostapd /etc/hostap/rtl_hostapd_2G.conf -B
+	sleep 1
+	ifconfig wlan0 192.168.8.8
+	
+	mkdir /var/lib/dhcp
+	touch /var/lib/dhcp/dhcpd.leases
+	dhcpd -cf /etc/hostap/dhcpd.conf wlan0
+    echo "enable wifi ap mode ok !"
+}
+stop()
+{
+     echo "USB wifi test stop !"
+}
+
+restart()
+{
+	stop
+	start
+}
+
+case "$1" in
+	start)
+	start;;
+  stop)
+	stop
+	;;
+	restart|reload)
+	restart
+	;;
+*)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	esac
+	exit $?
+

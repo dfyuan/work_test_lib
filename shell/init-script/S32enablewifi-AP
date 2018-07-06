@@ -1,0 +1,44 @@
+#!/bin/sh
+#
+# Enable usb wifi ap mode
+#
+
+
+start()
+{
+    insmod /etc/8821au.ko
+    sleep 1
+    ifconfig wlan0 up
+		ifconfig wlan0 192.168.1.1
+		sleep 1
+		hostapd /etc/rtl_hostapd_2G.conf -B 
+		sleep 1
+		dhcpd -cf /etc/dhcpd.conf wlan0 
+    echo "enable wifi ap mode ok !"
+}
+stop()
+{
+     echo "USB wifi test stop !"
+}
+
+restart()
+{
+	stop
+	start
+}
+
+case "$1" in
+	start)
+	start;;
+  stop)
+	stop
+	;;
+	restart|reload)
+	restart
+	;;
+*)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	esac
+	exit $?
+

@@ -1,0 +1,6 @@
+all:
+	g++ -o testsocam -I../../include main.cpp AitXU.cpp  -lpthread 
+clean:
+	rm ./testXU ./*.dat
+
+

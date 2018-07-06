@@ -1,0 +1,7 @@
+#!/bin/sh
+/sbin/ifconfig eth0 10.0.22.236 netmask 255.255.255.0
+/bin/mount -t nfs -o nolock 10.0.22.93:/home/dfyuan/projects/ambarella/ambarella_nfs /mnt
+/sbin/insmod /mnt/ezy_buf.ko
+/sbin/insmod /mnt/gdt_uvcvideo.ko
+
+/usr/local/bin/init.sh --ov4689

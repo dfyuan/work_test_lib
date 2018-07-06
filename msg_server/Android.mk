@@ -1,0 +1,15 @@
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+
+#LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
+
+LOCAL_SRC_FILES := main.cpp
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/include
+LOCAL_CFLAGS += -Wno-multichar
+
+LOCAL_MODULE := msg_server
+
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_EXECUTABLE)

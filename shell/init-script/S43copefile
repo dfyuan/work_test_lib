@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# Init copy file
+#
+
+start()
+{
+   	mkdir /usr/share/fonts
+    sleep 1
+    cp /etc/Vera.ttf /usr/share/fonts/
+    echo "Copy File OK !"
+}
+stop()
+{
+     echo "Copy File stop !"
+}
+
+restart()
+{
+	stop
+	start
+}
+
+case "$1" in
+	start)
+	start;;
+  stop)
+	stop
+	;;
+	restart|reload)
+	restart
+	;;
+*)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	esac
+	exit $?
+

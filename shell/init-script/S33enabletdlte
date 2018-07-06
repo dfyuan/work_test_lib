@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# Init S2lm 4G TD-LTE
+#
+
+insmod /lib/modules/3.10.50/kernel/drivers/usb/serial/usbserial.ko vendor=0x05c6 product=0x9025
+
+start()
+{
+    mknod /dev/ttyUSB0 c 188 0
+    mknod /dev/ttyUSB1 c 188 1
+    mknod /dev/ttyUSB2 c 188 2
+    mknod /dev/ttyUSB3 c 188 3
+    mknod /dev/ttyUSB4 c 188 4
+    sleep 1
+    /mnt/test
+    sleep 2
+    udhcpc -i usb0 &
+    echo "Enable 4G-LTE OK!"
+}
+stop()
+{
+     echo "stop 4G-LTE  !"
+}
+
+restart()
+{
+	stop
+	start
+}
+
+case "$1" in
+	start)
+	start;;
+  stop)
+	stop
+	;;
+	restart|reload)
+	restart
+	;;
+*)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	esac
+	exit $?
+

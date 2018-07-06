@@ -1,0 +1,45 @@
+#!/bin/sh
+#
+# Init RTSP video
+#
+sensor_name=--imx224
+
+start()
+{
+    /usr/local/bin/init.sh $sensor_name
+    sleep 1
+    /mnt/test_image -i 0 &
+     sleep 1
+    /mnt/test_encode -i 720p -X --binsize 720p --bsize 720p --bmaxsiz 720p -J --btype off -K --btype off --enc-mode 0
+    sleep 1
+    /mnt/test_bin/rtsp_server &
+    sleep 1
+    /mnt/test_encode -A -h 720p -e &
+    echo "Enable rtsp OK !"
+}
+stop()
+{
+     echo "USB wifi test stop !"
+}
+
+restart()
+{
+	stop
+	start
+}
+
+case "$1" in
+	start)
+	start;;
+  stop)
+	stop
+	;;
+	restart|reload)
+	restart
+	;;
+*)
+	echo "Usage: $0 {start|stop|restart}"
+	exit 1
+	esac
+	exit $?
+

@@ -1,0 +1,25 @@
+#
+# ezy buf
+#    (a) a peripheral controller, and
+#    (b) the gadget driver using it.
+#
+# NOTE:  Gadget support ** DOES NOT ** depend on host-side CONFIG_USB !!
+#
+#  - Host systems (like PCs) need CONFIG_USB (with "A" jacks).
+#  - Peripherals (like PDAs) need CONFIG_USB_GADGET (with "B" jacks).
+#  - Some systems have both kinds of controllers.
+#
+# With help from a special transceiver and a "Mini-AB" jack, systems with
+# both kinds of controller can also support "USB On-the-Go" (CONFIG_USB_OTG).
+#
+menuconfig SUNNY_UVC_GADEGT
+	bool "sunny uvc gadget menu"
+	default y
+	help 
+	    the sunny uvc gadget driver
+config USB_G_GADGET
+	tristate "USB UVC GADGET"
+	help
+	 uvc GADGET
+
+	 

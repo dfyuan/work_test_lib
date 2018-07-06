@@ -1,0 +1,18 @@
+LOCAL_PATH:= $(call my-dir)
+include $(CLEAR_VARS)
+LOCAL_FORCE_STATIC_EXECUTABLE := true
+#LOCAL_MODULE_PATH := $(TARGET_OUT_OPTIONAL_EXECUTABLES)
+
+LOCAL_SRC_FILES := main.cpp 
+
+LOCAL_C_INCLUDES := $(LOCAL_PATH)/include 
+
+LOCAL_SHARED_LIBRARIES := liblog
+LOCAL_STATIC_LIBRARIES := libsunny_sensor 
+LOCAL_CFLAGS += -Wno-multichar
+LOCAL_LDFLAGS +=$(LOCAL_PATH)/lib/libsunny_sensor.a
+LOCAL_MODULE := slam_demo
+
+LOCAL_MODULE_TAGS := optional
+
+include $(BUILD_EXECUTABLE)

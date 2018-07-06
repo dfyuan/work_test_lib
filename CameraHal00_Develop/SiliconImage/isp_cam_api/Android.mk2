@@ -1,0 +1,59 @@
+LOCAL_PATH:= $(call my-dir)
+
+include $(CLEAR_VARS)
+
+LOCAL_SRC_FILES:=\
+				cam_api/cam_engine_interface.cpp\
+				cam_api/camdevice.cpp\
+				cam_api/dom_ctrl_interface.cpp\
+				cam_api/exa_ctrl_interface.cpp\
+				cam_api/halholder.cpp\
+				cam_api/impexinfo.cpp\
+				cam_api/mapcaps.cpp\
+				cam_api/readpgmraw.cpp\
+				cam_api/som_ctrl_interface.cpp\
+				cam_api/vom_ctrl_interface.cpp\
+				calib_xml/calibdb_mockup.cpp
+#				calib_xml/calibdb.cpp\
+#				calib_xml/xmltags.cpp\
+#				calib_xml/calibtreewidget.cpp
+
+LOCAL_C_INCLUDES := \
+				bionic\
+				external/stlport/stlport\
+				$(LOCAL_PATH)/../include\
+				$(LOCAL_PATH)/include\
+				$(LOCAL_PATH)/calib_xml
+
+
+C_include := $(shell ls -F $(LOCAL_PATH))
+
+c_dir := $(filter-out ./,$(dir $(C_include)))
+c_dir_full := $(addprefix $(LOCAL_PATH)/,$(c_dir_full))
+
+
+child_dir := $(foreach n,$(c_dir_full),$(n).o)
+
+$(warning  $(child_dir))
+
+
+#$(warning  $(c_dir))
+
+#$(shell mkdir $(LOCAL_PATH)/test)
+
+#LOCAL_CFLAGS := -fno-short-enums -DCOPY_IMAGE_BUFFER
+LOCAL_CPPFLAGS := -fuse-cxa-atexit
+LOCAL_CFLAGS := -Wall -Wextra    -Wno-variadic-macros  -Wformat-nonliteral -g -O0 -DDEBUG
+LOCAL_CFLAGS += -DLINUX  -DMIPI_USE_CAMERIC -DHAL_MOCKUP -DCAM_ENGINE_DRAW_DOM_ONLY -D_FILE_OFFSET_BITS=64 -DHAS_STDINT_H
+LOCAL_SHARED_LIBRARIES := libisp_ebase libisp_oslayer libisp_common libisp_hal libisp_isi\
+							libisp_vom_ctrl libisp_som_ctrl libisp_dom_ctrl libisp_exa_ctrl\
+							libisp_cam_engine  libisp_version libisp_cameric_reg_drv libisp_cam_calibdb\
+							libstlport libbinder libutils libcutils libdl
+
+
+LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+LOCAL_MODULE:=lib_camera_silicomimageisp_api
+
+LOCAL_MODULE_TAGS:= optional
+include $(BUILD_SHARED_LIBRARY)
+
